@@ -8,6 +8,7 @@ class HellwavePlayer : DoomPlayer
 	default
 	{
 		+Invulnerable;
+		Player.StartItem "crystalgun";
 	}
 
 	override void PostBeginPlay()
