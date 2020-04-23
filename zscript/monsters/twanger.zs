@@ -46,7 +46,7 @@ class twangerMissile : actor
 		+MISSILE;
 		+NOGRAVITY;
 		speed 20;
-		damage (10);
+		damagefunction (10);
 	}
 
 	states
