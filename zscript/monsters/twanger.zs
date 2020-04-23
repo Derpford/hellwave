@@ -6,6 +6,8 @@ class twanger : actor replaces DoomImp
 		health 40;
 		MONSTER;
 		+float;
+		+nogravity;
+		+spawnfloat;
 		speed 5;
 	}
 
