@@ -40,6 +40,7 @@ class crystalshot : actor
 	{
 		PROJECTILE;
 		+ROLLSPRITE;
+		+MTHRUSPECIES;
 		renderstyle "add";
 		damagefunction 20;
 		//scale 2;
@@ -54,7 +55,6 @@ class crystalshot : actor
 				roll += 16;
 				Actor fx = spawn("crystalfx", pos);
 				fx.roll = roll;
-
 			}
 			Loop;
 		Death:
