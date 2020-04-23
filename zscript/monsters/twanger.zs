@@ -5,6 +5,8 @@ class twanger : actor replaces DoomImp
 	{
 		health 40;
 		MONSTER;
+		height 64;
+		radius 24;
 		+float;
 		+nogravity;
 		+spawnfloat;
