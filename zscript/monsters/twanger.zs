@@ -22,7 +22,11 @@ class twanger : actor replaces DoomImp
 			twng a 2 A_Chase();
 			loop;
 		missile:
-			twng b 4 A_SpawnProjectile("twangerMissile");
+			twng b 4 
+			{
+				A_SpawnProjectile("twangerMissile");
+				A_PlaySound("twang/shot");
+			}
 			twng cd 4;
 			goto see;
 		pain:

@@ -27,6 +27,7 @@ class crystalgun : weapon
 			{
 				A_FireProjectile("crystalshot");
 				A_WeaponOffset(0,24,WOF_ADD);
+				A_PlaySound("crystal/shot");
 			}
 			CRYS BA 6 A_WeaponOffset(0,-12,WOF_ADD);
 			Goto Ready;
