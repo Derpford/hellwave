@@ -3,6 +3,8 @@ class Heart : Actor
 	
 	// Keep it safe.
 	Actor owner;
+	int regentimer;
+
 	default
 	{
 		+SHOOTABLE;
@@ -20,8 +22,19 @@ class Heart : Actor
 
 	override void PostBeginPlay()
 	{
-		// Let's make sure our owner is a player.
 		super.PostBeginPlay();
+		// Set our regen timer.
+		regentimer = 0;
+	}
+
+	override int DamageMobj(Actor inflictor, Actor src, int damage, Name mod, int flags, double angle)
+	{
+		console.printf(""..inflictor.GetClassName());
+		if(inflictor == owner)
+		{ return 0; }// Can't damage yourself anymore.
+
+		regentimer = 70; // Two seconds must pass before you can start regenerating.
+		return super.DamageMobj(inflictor,src,damage,mod,flags,angle);
 	}
 
 	override void Tick()
@@ -60,6 +73,15 @@ class Heart : Actor
 			{
 				A_SpawnParticle("b99bd0",SPF_FULLBRIGHT|SPF_RELPOS,1,1,face+i-50,8,0,32);
 			}
+		}
+
+		if(regentimer < 1 && health < 100)
+		{
+			health += 1;
+		}
+		else
+		{
+			regentimer -= 1;
 		}
 
 		super.Tick();
