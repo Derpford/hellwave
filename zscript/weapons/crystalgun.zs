@@ -23,13 +23,14 @@ class crystalgun : weapon
 			CRYS ABC 4 A_Lower(24);
 			Loop;
 		Fire:
-			CRYS C 8 
+			CRYS C 0 
 			{
 				A_FireProjectile("crystalshot");
-				A_WeaponOffset(0,24,WOF_ADD);
 				A_PlaySound("crystal/shot");
 			}
-			CRYS BA 6 A_WeaponOffset(0,-12,WOF_ADD);
+			CRYS CC 1 A_WeaponOffset(0,12,WOF_ADD);
+			CRYS C 6;
+			CRYS BBBBBBAAAAAA 1 A_WeaponOffset(0,-2,WOF_ADD);
 			Goto Ready;
 	}
 }
