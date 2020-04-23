@@ -1,3 +1,9 @@
 defaultmap { sky1 = "OSKY46",0.5 }
 
 gameinfo { playerclasses = "HellwavePlayer" }
+
+doomednums
+{
+	6901 = "twanger"
+	
+}

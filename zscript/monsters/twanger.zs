@@ -1,4 +1,4 @@
-class twanger : actor replaces DoomImp
+class twanger : actor
 {
 	// Malicious flying caution symbol.
 	default
