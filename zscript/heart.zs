@@ -29,7 +29,7 @@ class Heart : Actor
 
 	override int DamageMobj(Actor inflictor, Actor src, int damage, Name mod, int flags, double angle)
 	{
-		console.printf(""..inflictor.GetClassName());
+		//console.printf(""..inflictor.GetClassName());
 		if(inflictor == owner)
 		{ return 0; }// Can't damage yourself anymore.
 
