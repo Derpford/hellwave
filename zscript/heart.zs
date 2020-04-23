@@ -40,7 +40,7 @@ class Heart : Actor
 			}
 			if(goal.length()>72)
 			{
-				vel = mov*16;
+				vel = mov*8;
 			}
 			else
 			{

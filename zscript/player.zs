@@ -22,7 +22,7 @@ class HellwavePlayer : DoomPlayer
 	{
 		// Set a variable here that the heart can check to see if it needs to follow.
 		int buttons = GetPlayerInput(INPUT_BUTTONS);
-		if(buttons && BT_SPEED)
+		if(buttons & BT_SPEED)
 		{
 			// Holding walk or run makes the heart stop.
 			HeartFollow = false;
