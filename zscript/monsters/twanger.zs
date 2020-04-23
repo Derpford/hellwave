@@ -45,7 +45,7 @@ class twangerMissile : actor
 
 	default
 	{
-		+MISSILE;
+		PROJECTILE;
 		+NOGRAVITY;
 		speed 20;
 		damagefunction (10);
