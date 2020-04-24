@@ -45,15 +45,27 @@ class Heart : Actor
 		{
 			// Follow the player!
 			
-			vector3 mov = (0,0,0);
+			Vector3 mov = (0,0,0);
 			Vector3 goal = Vec3To(owner);
+			Vector2 goal2d = (goal.x,goal.y);
+
 			if(goal.length() != 0) // div by zero checks~!
 			{
 				mov = (goal.x/goal.length(), goal.y/goal.length(), goal.z/goal.length());
 			}
+
+			if(!LineTrace(atan2(goal.x, goal.y),72.0,atan2(goal2d.length(),goal.z)))
+			{
+				mov += (random(-1,1),random(-1,1),random(-1,1));
+			}
+
 			if(goal.length()>72)
 			{
-				vel = mov*8;
+				if(vel.length()<12)
+				{ 
+					vel += mov*4;
+				}
+				vel = vel*0.9;
 			}
 			else
 			{
