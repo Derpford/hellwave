@@ -8,6 +8,7 @@ class HellwavePlayer : DoomPlayer
 	default
 	{
 		+Invulnerable;
+		+THRUSPECIES;
 		Player.StartItem "crystalgun";
 	}
 

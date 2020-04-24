@@ -11,6 +11,7 @@ class Heart : Actor
 	{
 		+SHOOTABLE;
 		+SOLID;
+		+THRUSPECIES;
 		//+THRUACTORS;
 		species "HellwavePlayer";
 		height 64;
