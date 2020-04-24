@@ -4,6 +4,8 @@ class Heart : Actor
 	// Keep it safe.
 	Actor owner;
 	int regentimer;
+	int angletimer; // How long before we try changing angles again.
+	double randomangle; // what angle we're trying.
 
 	default
 	{
@@ -54,9 +56,24 @@ class Heart : Actor
 				mov = (goal.x/goal.length(), goal.y/goal.length(), goal.z/goal.length());
 			}
 
-			if(!LineTrace(atan2(goal.x, goal.y),72.0,atan2(goal2d.length(),goal.z)))
+			//FLineTraceData trace;
+			//LineTrace(atan2(goal.x, goal.y),72.0,atan2(goal2d.length(),goal.z), 0,0,0,0,trace);
+			//console.printf("line:"..trace.distance);
+
+			//FCheckPosition tm;
+			target = owner;
+			if(!CheckLOF(minrange: 64, offsetwidth: -12) || !CheckLOF(minrange: 64, offsetwidth: 12))
 			{
-				mov += (random(-1,1),random(-1,1),random(-1,1));
+				//if(tm.)
+				//console.printf("Blocked!");
+				if(angletimer < 1)
+				{
+					angletimer = random(105,175);
+					randomangle = frandom(95,125);
+					if(random(1,2)>1)
+					{ randomangle *= -1; }
+				}
+				mov = (RotateVector((mov.x, mov.y), randomangle), mov.z);
 			}
 
 			if(goal.length()>72)
@@ -95,6 +112,8 @@ class Heart : Actor
 		{
 			regentimer -= 1;
 		}
+		if(angletimer > 0)
+		{ angletimer -= 1; }
 
 		super.Tick();
 	}
