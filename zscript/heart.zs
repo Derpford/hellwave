@@ -52,18 +52,17 @@ class Heart : Actor
 			Vector3 goal = Vec3To(owner);
 			Vector2 goal2d = (goal.x,goal.y);
 
+			bool freeleft = CheckLOF(minrange: 64, offsetwidth: -12); // Left side unblocked?
+			bool freeright = CheckLOF(minrange: 64, offsetwidth: 12); // Right side unblocked?
+			bool canfollow = freeleft && freeright;
+
 			if(goal.length() != 0) // div by zero checks~!
 			{
 				mov = (goal.x/goal.length(), goal.y/goal.length(), goal.z/goal.length());
 			}
 
-			//FLineTraceData trace;
-			//LineTrace(atan2(goal.x, goal.y),72.0,atan2(goal2d.length(),goal.z), 0,0,0,0,trace);
-			//console.printf("line:"..trace.distance);
-
-			//FCheckPosition tm;
 			target = owner;
-			if(!CheckLOF(minrange: 64, offsetwidth: -12) || !CheckLOF(minrange: 64, offsetwidth: 12))
+			if(!canfollow)
 			{
 				//if(tm.)
 				//console.printf("Blocked!");
@@ -71,7 +70,11 @@ class Heart : Actor
 				{
 					angletimer = random(105,175);
 					randomangle = frandom(95,125);
-					if(random(1,2)>1)
+					if(freeright && !freeleft)
+					{ randomangle *= -1; }
+					else if(freeleft && !freeright)
+					{ randomangle *= 1; } // Dummy operation, we want a positive angle if freeleft is true but freeright isn't
+					else if(random(0,1)>0)
 					{ randomangle *= -1; }
 				}
 				mov = (RotateVector((mov.x, mov.y), randomangle), mov.z);
@@ -79,7 +82,11 @@ class Heart : Actor
 
 			if(goal.length()>72)
 			{
-				if(vel.length()<12)
+				if(vel.length()<12 && canfollow)
+				{ 
+					vel += mov*4;
+				}
+				else if(vel.length()<6) // We can't see the player, so use a lower top speed.
 				{ 
 					vel += mov*4;
 				}
