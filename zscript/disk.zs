@@ -8,6 +8,7 @@ class disk : Inventory
 		+Inventory.ALWAYSRESPAWN;
 		Alpha 0; // needed for fade-in
 		+WALLSPRITE;
+		+FLOATBOB;
 	}
 
 	override void Tick()
