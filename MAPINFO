@@ -5,5 +5,5 @@ gameinfo { playerclasses = "HellwavePlayer" }
 doomednums
 {
 	6901 = "twanger"
-	
+	6902 = "disk"
 }
