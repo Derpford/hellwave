@@ -11,6 +11,8 @@ class disk : CustomInventory
 		+WALLSPRITE;
 		+FLOATBOB;
 		scale 0.5;
+		Radius 32;
+		Inventory.RespawnTics 140;
 		Inventory.PickupMessage "Found a disk.";
 		Inventory.PickupSound "disk/pickup";
 	}
@@ -24,6 +26,7 @@ class disk : CustomInventory
 	States
 	{
 		Spawn:
+			DISK A 0;
 			DISK A 1 
 			{
 				A_FadeIn();
