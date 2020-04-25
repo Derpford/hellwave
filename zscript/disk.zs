@@ -1,6 +1,7 @@
-class disk : Inventory
+class disk : CustomInventory
 {
-	// Prints a message on pickup based on its arg0string.
+	// Prints a message on pickup. Message defined in the map.
+	string user_message;
 
 	default
 	{
@@ -9,15 +10,14 @@ class disk : Inventory
 		Alpha 0; // needed for fade-in
 		+WALLSPRITE;
 		+FLOATBOB;
+		scale 0.5;
+		Inventory.PickupMessage "Found a disk.";
 	}
 
 	override void Tick()
 	{
 		super.Tick();
-		if(instatesequence(curstate,ResolveState("Spin")))
-		{
-			angle += 1;
-		}
+		angle += 1;
 	}
 
 	States
@@ -26,7 +26,7 @@ class disk : Inventory
 			DISK A 1 
 			{
 				A_FadeIn();
-				if(alpha == 1.0)
+				if(alpha >= 1.0)
 				{
 					return ResolveState("Spin");
 				}
@@ -34,10 +34,13 @@ class disk : Inventory
 			}
 			Loop;
 		Spin:
-			DISK A 6;
-			DISK BC 3;
+			DISK A 16;
+			DISK BC 4;
 			DISK D 2;
 			Loop;
+		Pickup:
+			DISK A 0 A_Print(""..invoker.user_message);
+			Stop;
 		Death:
 			DISK BCD 3 A_FadeOut();
 			Loop;
