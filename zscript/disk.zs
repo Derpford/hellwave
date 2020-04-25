@@ -12,6 +12,7 @@ class disk : CustomInventory
 		+FLOATBOB;
 		scale 0.5;
 		Inventory.PickupMessage "Found a disk.";
+		Inventory.PickupSound "disk/pickup";
 	}
 
 	override void Tick()
@@ -39,7 +40,10 @@ class disk : CustomInventory
 			DISK D 2;
 			Loop;
 		Pickup:
-			DISK A 0 A_Print(""..invoker.user_message);
+			DISK A 0 
+			{	
+				A_Print(""..invoker.user_message,3);
+			}
 			Stop;
 		Death:
 			DISK BCD 3 A_FadeOut();
