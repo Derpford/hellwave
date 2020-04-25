@@ -43,10 +43,38 @@ class disk : CustomInventory
 			DISK A 0 
 			{	
 				A_Print(""..invoker.user_message,5);
+				Spawn("diskfadeFX",invoker.pos);
 			}
 			Stop;
 		Death:
-			DISK BCD 3 A_FadeOut();
+			DISK ABCD 1 A_FadeOut();
+			Loop;
+	}
+}
+
+class diskfadeFX : Actor
+{
+	// Fades out slowly.
+	default
+	{
+		+WALLSPRITE;
+		+FLOATBOB;
+		scale 0.5;
+		Alpha 1;
+	}
+
+	override void Tick()
+	{
+		super.Tick();
+		angle += 8;
+	}
+
+	States
+	{
+		Spawn:
+			DISK ABCD 1;
+		Death:
+			DISK ABCD 1 A_FadeOut(0.025);
 			Loop;
 	}
 }
