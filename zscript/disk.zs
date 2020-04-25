@@ -42,7 +42,7 @@ class disk : CustomInventory
 		Pickup:
 			DISK A 0 
 			{	
-				A_Print(""..invoker.user_message,3);
+				A_Print(""..invoker.user_message,5);
 			}
 			Stop;
 		Death:
