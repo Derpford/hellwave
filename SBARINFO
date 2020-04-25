@@ -1,4 +1,4 @@
 StatusBar Fullscreen
 {
-	DrawKeyBar 2, Horizontal, auto, 146, 0;
+	DrawKeyBar 2, Horizontal, auto, 151, 0;
 }
