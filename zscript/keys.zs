@@ -1,4 +1,21 @@
-Class BlueIconKey : Key
+Class IconKey : Key
+{
+	// Spinny.
+	default
+	{
+		Inventory.PickupSound "disk/pickup";
+		+WALLSPRITE;
+		+FLOATBOB;
+	}
+
+	override void Tick()
+	{
+		super.tick();
+		angle += 1;
+	}
+}
+
+Class BlueIconKey : IconKey
 {
 	// Blue key object.
 	default
@@ -6,7 +23,6 @@ Class BlueIconKey : Key
 		Inventory.PickupMessage "Found a blue symbol...";
 		Species "BlueCard";
 		Inventory.Icon "bicoa0";
-		Inventory.PickupSound "disk/pickup";
 	}
 
 	States
@@ -17,7 +33,7 @@ Class BlueIconKey : Key
 	}
 }
 
-Class RedIconKey : Key
+Class RedIconKey : IconKey
 {
 	// Red key object.
 	default
@@ -25,7 +41,6 @@ Class RedIconKey : Key
 		Inventory.PickupMessage "Found a Red symbol...";
 		Species "RedCard";
 		Inventory.Icon "ricoa0";
-		Inventory.PickupSound "disk/pickup";
 	}
 
 	States
