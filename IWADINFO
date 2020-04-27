@@ -1,0 +1,9 @@
+IWad
+{
+	Name = "Hellwave"
+	AutoName = "Doom2.Hellwave"
+	Game = "Doom"
+	Mapinfo = "mapinfo/doom2.txt"
+	StartupType = "Heretic"
+	BannerColors = "4752b2", "c64bbc"
+}

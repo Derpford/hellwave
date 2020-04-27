@@ -1,4 +1,4 @@
-class HellwavePlayer : DoomPlayer
+class HellwavePlayer : PlayerPawn
 {
 	// Invulnerable, but spawns a Heart when he spawns in.
 	// When the Heart dies, you die.
@@ -7,6 +7,7 @@ class HellwavePlayer : DoomPlayer
 
 	default
 	{
+		Player.DisplayName "Unfortunate Soul";
 		+Invulnerable;
 		+THRUSPECIES;
 		Player.StartItem "crystalgun";
