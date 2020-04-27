@@ -2,6 +2,7 @@ IWad
 {
 	Name = "Hellwave"
 	AutoName = "Doom2.Hellwave"
+	Config = "Doom2"
 	Game = "Doom"
 	Mapinfo = "mapinfo/doom2.txt"
 	StartupType = "Heretic"
