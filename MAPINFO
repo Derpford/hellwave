@@ -1,6 +1,9 @@
 defaultmap { sky1 = "OSKY46",0.5 }
 
-gameinfo { playerclasses = "HellwavePlayer" }
+gameinfo { 
+	playerclasses = "HellwavePlayer" 
+	borderflat = "dithwal1"
+}
 
 doomednums
 {
