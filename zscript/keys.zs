@@ -28,8 +28,8 @@ Class BlueIconKey : IconKey
 	States
 	{
 		Spawn:
-			BKEY A 16;
-			BKEY B 4;
+			BKEY A 16 bright;
+			BKEY B 4 bright;
 	}
 }
 
@@ -46,7 +46,7 @@ Class RedIconKey : IconKey
 	States
 	{
 		Spawn:
-			RKEY A 16;
-			RKEY B 4;
+			RKEY A 16 bright;
+			RKEY B 4 bright;
 	}
 }
