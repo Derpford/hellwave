@@ -155,3 +155,26 @@ class Heart : Actor
 
 	}
 }
+
+class DecoHeart : Actor
+{
+	// Purely decorative.
+	default
+	{
+		height 64;
+		radius 12;
+		+FLOATBOB;
+		FloatBobStrength 0.25;
+
+	}
+
+	states
+	{
+		Spawn:
+			HART A 35 bright;
+			HART B 4 bright;
+			HART C 3 bright;
+			HART B 4 bright;
+			loop;
+	}
+}
