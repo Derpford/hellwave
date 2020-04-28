@@ -4,6 +4,42 @@ gameinfo {
 	playerclasses = "HellwavePlayer" 
 	borderflat = "dithwal1"
 	skyflatname = "f_sky1"
+
+	quitmessages = "Your soul is forfeit.\nPress Y to abandon it, or N to steal it back.",
+	"a b a n d o n a l l h o p e ? (y/n)",
+	"Belphegor sends his regards.\n(Press Y to flee.)",
+	"What you are referring to as 'DOOM' is in fact GZDoom, or as I like to call it, Doom Plus Graf...\n(Press Y to quit)",
+	"Don't leave now, there's an existential angst at the DOS prompt!",
+	"I take it the existential angst is too much.",
+	"Go back to your boring old job.",
+	"Why can't I hold all these souls?",
+	"Surrender to the endless march of time?",
+	"I guess the spooky triangles were a bit much."
+}
+
+clearskills
+
+skill "synth"
+{
+	SpawnFilter = 2
+	Name = "SynthWave"
+	DisableCheats
+}
+
+skill "vapor"
+{
+	SpawnFilter = 3
+	Name = "VaporWave"
+	DisableCheats
+}
+
+skill "hell"
+{
+	SpawnFilter = 4
+	Name = "HELL WAVE"
+	DisableCheats
+	NoPain
+	MustConfirm = "Your enemy will not feel pain. They will not feel remorse. Are you sure?"
 }
 
 doomednums
