@@ -1,0 +1,12 @@
+DefaultListMenu {
+ Font "DBIGFONT"
+ Selector "HARTA0", -16,32
+ }
+ 
+ListMenu "MainMenu"{
+	TextItem "New Soul", "n", "SkillMenu" 
+	TextItem "Recall Soul", "l", "LoadGameMenu"
+	TextItem "Store Soul", "s", "SaveGameMenu"
+	TextItem "Change Reality", "o", "OptionsMenu"
+	TextItem "Escape", "q", "QuitMenu"
+}
