@@ -4,6 +4,7 @@ class HellwavePlayer : PlayerPawn
 	// When the Heart dies, you die.
 
 	bool HeartFollow;
+	Actor heart;
 
 	default
 	{
@@ -13,11 +14,19 @@ class HellwavePlayer : PlayerPawn
 		Player.StartItem "crystalgun";
 	}
 
+	void HeartSpawn()
+	{
+		// TODO: Make a thinker-iterator here to see if there's any Heart that currently has us as its Owner.
+		Vector3 newpos = Vec3Angle(32.0, angle);
+		let nheart = Heart(spawn("Heart",newpos));
+		nheart.owner = self;
+		heart = nheart;
+		// Spawns a new heart.
+	}
+
 	override void PostBeginPlay()
 	{
-		Vector3 newpos = Vec3Angle(32.0, angle);
-		let heart = Heart(spawn("Heart",newpos));
-		heart.owner = self;
+		HeartSpawn();	
 		super.PostBeginPlay();
 	}
 
@@ -33,6 +42,12 @@ class HellwavePlayer : PlayerPawn
 		else
 		{
 			HeartFollow = true;
+		}
+
+		if(heart == null)
+		{
+			// We need a new heart! 
+			HeartSpawn();
 		}
 		super.Tick();
 	}
