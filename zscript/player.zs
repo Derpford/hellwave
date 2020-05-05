@@ -16,11 +16,39 @@ class HellwavePlayer : PlayerPawn
 
 	void HeartSpawn()
 	{
-		// TODO: Make a thinker-iterator here to see if there's any Heart that currently has us as its Owner.
+		//TODO: Move all heart handling to an event handler.
+		ThinkerIterator ht = ThinkerIterator.Create("Heart", STAT_DEFAULT);
+		Actor nheart;
+		bool found = false;
+		bool end = false;
+		while(!found & !end)
+		{
+			let nheart = Heart(ht.next());
+			if(nheart != null)
+			{
+				if(nheart.owner == self)
+				{
+					found = true;
+					break;
+				}
+			}
+			else
+			{
+				end = true;
+			}
+		}
 		Vector3 newpos = Vec3Angle(32.0, angle);
-		let nheart = Heart(spawn("Heart",newpos));
-		nheart.owner = self;
-		heart = nheart;
+
+		if(found == true)
+		{
+			nheart.setXYZ(newpos);
+		}
+		else
+		{
+			let nheart = Heart(spawn("Heart",newpos));
+			nheart.owner = self;
+			heart = nheart;
+		}
 		// Spawns a new heart.
 	}
 
@@ -47,7 +75,7 @@ class HellwavePlayer : PlayerPawn
 		if(heart == null)
 		{
 			// We need a new heart! 
-			HeartSpawn();
+			//HeartSpawn();
 		}
 		super.Tick();
 	}
