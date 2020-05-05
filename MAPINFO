@@ -1,4 +1,24 @@
-defaultmap { sky1 = "OSKY46",0.5 }
+defaultmap { 
+	sky1 = "OSKY46",0.5 
+	cluster = 1
+}
+
+cluster 1 {
+	hub
+}
+
+map MAP01 "Temple of Belphegor"
+{ 
+	LevelNum = 01
+	Cluster = 1
+}
+
+map MAP02 "Soulless Mall"
+{
+	LevelNum = 02
+	Cluster = 1
+}
+
 
 gameinfo { 
 	playerclasses = "HellwavePlayer" 
