@@ -2,6 +2,7 @@ version "4.1"
 
 // Key objects.
 #include "zscript/heart.zs"
+#include "zscript/handlers.zs"
 #include "zscript/player.zs"
 #include "zscript/disk.zs"
 

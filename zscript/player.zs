@@ -21,7 +21,7 @@ class HellwavePlayer : PlayerPawn
 		Actor nheart;
 		bool found = false;
 		bool end = false;
-		while(!found & !end)
+		/*while(!found & !end)
 		{
 			let nheart = Heart(ht.next());
 			if(nheart != null)
@@ -37,6 +37,7 @@ class HellwavePlayer : PlayerPawn
 				end = true;
 			}
 		}
+		*/
 		Vector3 newpos = Vec3Angle(32.0, angle);
 
 		if(found == true)
@@ -54,7 +55,7 @@ class HellwavePlayer : PlayerPawn
 
 	override void PostBeginPlay()
 	{
-		HeartSpawn();	
+		//HeartSpawn();	
 		super.PostBeginPlay();
 	}
 

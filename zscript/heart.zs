@@ -153,6 +153,10 @@ class Heart : Actor
 
 			stop;
 
+		death.safe:
+			TNT1 A 1;
+			Stop;
+
 	}
 }
 
