@@ -11,6 +11,8 @@ class HellwavePlayer : PlayerPawn
 		Player.DisplayName "Unfortunate Soul";
 		+Invulnerable;
 		+THRUSPECIES;
+		+FloatBob;
+		FloatBobStrength 0.25;
 		Player.StartItem "crystalgun";
 	}
 
@@ -79,5 +81,16 @@ class HellwavePlayer : PlayerPawn
 			//HeartSpawn();
 		}
 		super.Tick();
+	}
+	
+	states
+	{
+		Spawn:
+			PLYR A 35;
+			PLYR BCB 12;
+			Loop;
+		Death:
+			HART BCDE 1;
+			Stop;
 	}
 }
