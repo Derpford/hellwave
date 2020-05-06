@@ -14,4 +14,5 @@ version "4.1"
 
 // Combat objects.
 #include "zscript/monsters/twanger.zs"
+#include "zscript/monsters/snake.zs"
 #include "zscript/weapons/crystalgun.zs"
