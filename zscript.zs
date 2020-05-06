@@ -6,6 +6,9 @@ version "4.1"
 #include "zscript/player.zs"
 #include "zscript/disk.zs"
 
+// NPCs.
+#include "zscript/npc.zs"
+
 // Actual keys.
 #include "zscript/keys.zs"
 

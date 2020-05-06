@@ -69,6 +69,9 @@ doomednums
 	6901 = "twanger"
 	6902 = "disk"
 	6903 = "DecoHeart"
+	
 	6911 = "BlueIconKey"
 	6912 = "RedIconKey"
+
+	6921 = "DeezNutsShopkeeper"
 }
