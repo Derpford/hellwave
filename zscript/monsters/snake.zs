@@ -37,6 +37,10 @@ class snakehead : actor
 			Goto Spawn;
 		Death:
 			HART BCDE 1;
+			HART E 0
+			{
+				tail.A_Die("final");
+			}
 			Stop;
 
 	}
@@ -116,5 +120,12 @@ class snakebody : actor
 		Death:
 			HART BCDE 1;
 			Stop;
+		Death.final:
+			HART BCDE 1;
+			HART E 0
+			{
+				if(tail!=null) { tail.A_Die("final"); }
+			}
+			stop;
 	}
 }
