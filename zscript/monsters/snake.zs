@@ -6,6 +6,7 @@ class snakehead : actor
 		+SHOOTABLE;
 		+SOLID;
 		+THRUSPECIES;
+		Species "Snake";
 		+FLOATBOB;
 		FloatBobStrength 0.5;
 		+FLOAT;
@@ -16,6 +17,7 @@ class snakehead : actor
 
 	override void PostBeginPlay()
 	{
+		Super.PostBeginPlay();
 		let tail = snakebody(spawn("snakebody",pos));
 		tail.Attach(self, 8);
 	}
@@ -31,15 +33,31 @@ class snakehead : actor
 			HART ABC 1;
 			Goto Spawn;
 		Death:
+			HART BCDE 1;
+			Stop;
 
 	}
 }
 
-class snakebody : snakehead
+class snakebody : actor
 {
 	// Transfers damage up the chain.
 	Actor owner;
 	Actor tail;
+
+	default
+	{
+		+SHOOTABLE;
+		+SOLID;
+		+THRUSPECIES;
+		Species "Snake";
+		+FLOATBOB;
+		FloatBobStrength 0.5;
+		+FLOAT;
+		+NOGRAVITY;
+		+SPAWNFLOAT;
+		speed 10;
+	}
 
 	void Attach(Actor head, int length)
 	{
@@ -54,13 +72,19 @@ class snakebody : snakehead
 
 	override void Tick()
 	{
-		
-		if(Distance3D(owner) > 64)
+		Super.Tick();	
+
+		Vector3 mov = (0,0,0);
+		Vector3 goal = pos;
+		if(owner != null)
 		{
-			// Follow the snek!
+			if(Distance3D(owner) > 64)
+			{
+				// Follow the snek!
+				
+				goal = Vec3To(owner);
+			}
 			
-			Vector3 mov = (0,0,0);
-			Vector3 goal = Vec3To(owner);
 			Vector2 goal2d = (goal.x,goal.y);
 
 			if(goal.length() != 0) // div by zero checks~!
@@ -70,20 +94,9 @@ class snakebody : snakehead
 
 			if(goal.length()>72)
 			{
-				if(vel.length()<12)
-				{ 
-					vel += mov*4;
-				}
-				else if(vel.length()<6) // We can't see the player, so use a lower top speed.
-				{ 
-					vel += mov*4;
-				}
-				vel = vel*0.9;
+				vel = goal/8;
 			}
-			else
-			{
-				vel = vel/2;
-			}
+			vel = vel/2;
 		}
 	}
 
@@ -95,8 +108,8 @@ class snakebody : snakehead
 		Pain:
 			HART BC 1;
 			Goto Spawn;
-		/*Death:
+		Death:
 			HART BCDE 1;
-			Stop;*/
+			Stop;
 	}
 }
