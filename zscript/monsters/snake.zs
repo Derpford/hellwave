@@ -12,7 +12,7 @@ class snakehead : actor
 		+FLOAT;
 		+NOGRAVITY;
 		+SPAWNFLOAT;
-		speed 10;
+		speed 20;
 	}
 
 	override void PostBeginPlay()
@@ -56,7 +56,6 @@ class snakebody : actor
 		+FLOAT;
 		+NOGRAVITY;
 		+SPAWNFLOAT;
-		speed 10;
 	}
 
 	void Attach(Actor head, int length)
@@ -64,9 +63,12 @@ class snakebody : actor
 		if(length>0)
 		{
 			owner = head;
-			tail = spawn("snakebody",pos);
-			let next = snakebody(tail);
-			if(length>1) { next.Attach(self,length-1); }
+			if(length>1) 
+			{ 
+				tail = spawn("snakebody",pos);
+				let next = snakebody(tail);
+				next.Attach(self,length-1); 
+			}
 		}
 	}
 
