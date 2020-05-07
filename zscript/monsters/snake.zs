@@ -1,6 +1,8 @@
 class snakehead : actor
 {
 	// Snake boss. Spawns a tail behind it. Treasure AF.
+	Actor tail;
+
 	default
 	{
 		+SHOOTABLE;
@@ -18,8 +20,9 @@ class snakehead : actor
 	override void PostBeginPlay()
 	{
 		Super.PostBeginPlay();
-		let tail = snakebody(spawn("snakebody",pos));
-		tail.Attach(self, 8);
+		tail = spawn("snakebody",pos);
+		let next = snakebody(tail);
+		next.Attach(self, 8);
 	}
 
 	states
