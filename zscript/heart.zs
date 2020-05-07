@@ -12,6 +12,7 @@ class Heart : Actor
 		+SHOOTABLE;
 		+SOLID;
 		+THRUSPECIES;
+		+SLIDESONWALLS;
 		//+THRUACTORS;
 		species "HellwavePlayer";
 		height 64;
@@ -62,7 +63,7 @@ class Heart : Actor
 			}
 
 			target = owner;
-			if(!canfollow)
+			/*if(!canfollow)
 			{
 				//if(tm.)
 				//console.printf("Blocked!");
@@ -78,11 +79,11 @@ class Heart : Actor
 					{ randomangle *= -1; }
 				}
 				mov = (RotateVector((mov.x, mov.y), randomangle), mov.z);
-			}
+			}*/
 
 			if(goal.length()>72)
 			{
-				if(vel.length()<12 && canfollow)
+				if(vel.length()<12 /*&& canfollow*/)
 				{ 
 					vel += mov*4;
 				}
