@@ -14,7 +14,11 @@ class snakehead : actor
 		+FLOAT;
 		+NOGRAVITY;
 		+SPAWNFLOAT;
-		speed 20;
+		+FRIGHTENED;
+		speed 15;
+		health 100;
+		radius 12;
+		height 32;
 	}
 
 	override void PostBeginPlay()
@@ -31,7 +35,8 @@ class snakehead : actor
 			HART B 1 A_Look();
 			Loop;
 		See:
-			HART B 1 A_Chase();
+			HART B 1 A_Chase(flags: CHF_FASTCHASE);
+			Loop;
 		Pain:
 			HART ABC 1;
 			Goto Spawn;
@@ -63,6 +68,9 @@ class snakebody : actor
 		+FLOAT;
 		+NOGRAVITY;
 		+SPAWNFLOAT;
+		Health 100;
+		radius 12;
+		height 32;
 	}
 
 	void Attach(Actor head, int length)
@@ -87,7 +95,7 @@ class snakebody : actor
 		Vector3 goal = pos;
 		if(owner != null)
 		{
-			if(Distance3D(owner) > 64)
+			if(Distance3D(owner) > 16)
 			{
 				// Follow the snek!
 				
@@ -101,9 +109,9 @@ class snakebody : actor
 				mov = (goal.x/goal.length(), goal.y/goal.length(), goal.z/goal.length());
 			}
 
-			if(goal.length()>72)
+			if(goal.length()>32)
 			{
-				vel = goal/8;
+				vel = goal/2;
 			}
 			vel = vel/2;
 		}
