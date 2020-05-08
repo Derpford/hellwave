@@ -4,6 +4,11 @@ class RedNPC : Actor
 	default
 	{
 	 	+SOLID;
+		+SHOOTABLE; // why do NPCs have to be +SHOOTABLE
+		+INVULNERABLE; // lol skyrim NPCs
+		+FLOATBOB;
+		FloatBobStrength 0.25;
+		height 64;
 		radius 16;
 	}
 
