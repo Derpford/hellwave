@@ -2,6 +2,7 @@ class snakehead : actor
 {
 	// Snake boss. Spawns a tail behind it. Treasure AF.
 	Actor tail;
+	int timer;
 
 	default
 	{
@@ -15,7 +16,7 @@ class snakehead : actor
 		+NOGRAVITY;
 		+SPAWNFLOAT;
 		+FRIGHTENED;
-		speed 15;
+		speed 12;
 		health 100;
 		radius 12;
 		height 32;
@@ -27,6 +28,29 @@ class snakehead : actor
 		tail = spawn("snakebody",pos);
 		let next = snakebody(tail);
 		next.Attach(self, 8);
+		timer = random(35,70);
+	}
+
+	override void tick()
+	{
+		super.tick();
+		timer -= 1;
+		if(timer<1)
+		{
+			if(Vec3To(target).length()>512)
+			{
+				bFRIGHTENED = false;
+			}
+			else if(Vec3To(target).length()<256)
+			{
+				bFRIGHTENED = true;
+			}
+			timer = random(35,70);
+		}
+		else
+		{
+
+		}
 	}
 
 	states
@@ -127,6 +151,25 @@ class snakebody : actor
 			Goto Spawn;
 		Death:
 			HART BCDE 1;
+			HART E 0
+			{
+				if(tail!=null) // We don't need to check if the tail is the head, that's silly.
+				{
+					let next = snakebody(tail);
+					next.owner = self.owner; // Our tail now points to its new owner...
+				}
+				if(owner is "snakehead")
+				{
+					let head = snakehead(owner);
+					if(head!=null) { head.tail = tail; } // If the head is our owner, it points to the next tail section.
+				}
+				else if(owner is "snakebody")
+				{
+					let head = snakebody(owner);
+					if(head!=null) { head.tail = tail; } // And if the owner is another tail segment, it's updated now.
+				}
+				
+			}
 			Stop;
 		Death.final:
 			HART BCDE 1;
