@@ -104,7 +104,7 @@ class CardShot : Actor
 					A_SpawnProjectile("CardFrag",0,0,45+90*i,CMF_AIMDIRECTION);
 				}
 			}
-			DOLL ABCD 1; 
+			DOLL ABCD 1 A_Explode(15,64);
 			Stop;
 	}
 }
@@ -129,7 +129,6 @@ class CardFrag : Actor
 				A_SpawnItemEX("CardTrail");	
 				angle += 40;
 				Thrust(4,angle);
-				A_Explode(5,128);
 				A_Countdown();
 			}
 			Loop;
