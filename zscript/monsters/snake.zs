@@ -178,6 +178,11 @@ class snakebody : actor
 			}
 			vel = vel/2;
 		}
+		else
+		{
+			// No head.
+			A_Die("final");
+		}
 	}
 
 	states
