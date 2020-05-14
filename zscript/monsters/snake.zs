@@ -2,7 +2,8 @@ class snakehead : actor
 {
 	// Snake boss. Spawns a tail behind it. Treasure AF.
 	Actor tail;
-	int timer;
+	int DodgeTimer;
+	int MissileTimer;
 
 	default
 	{
@@ -20,6 +21,7 @@ class snakehead : actor
 		health 100;
 		radius 12;
 		height 32;
+		MinMissileChance 300;
 	}
 
 	override void PostBeginPlay()
@@ -28,14 +30,15 @@ class snakehead : actor
 		tail = spawn("snakebody",pos);
 		let next = snakebody(tail);
 		next.Attach(self, 8);
-		timer = random(35,70);
+		DodgeTimer = random(35,70);
 	}
 
 	override void tick()
 	{
 		super.tick();
-		timer -= 1;
-		if(timer<1)
+		DodgeTimer -= 1;
+		MissileTimer -= 1;
+		if(DodgeTimer<1)
 		{
 			if(Vec3To(target).length()>512)
 			{
@@ -45,7 +48,7 @@ class snakehead : actor
 			{
 				bFRIGHTENED = true;
 			}
-			timer = random(35,70);
+			DodgeTimer = random(35,70);
 		}
 		else
 		{
@@ -65,6 +68,11 @@ class snakehead : actor
 			HART ABC 1;
 			Goto Spawn;
 		Missile:
+			HART A 0
+			{
+				if(MissileTimer>1) { return ResolveState("see"); }
+				else { return ResolveState(null); }
+			}
 			HART AABBCC 1 A_Chase(flags: CHF_FASTCHASE);
 			HART C 1 
 			{
@@ -74,6 +82,8 @@ class snakehead : actor
 					next.WaveAttack();
 				}
 				A_Chase(flags: CHF_FASTCHASE);
+				MissileTimer = random(35,70);
+				
 			}
 			Goto See;
 		Death:
@@ -127,8 +137,11 @@ class snakebody : actor
 	{
 		// Sets state to WaveAttack, then sets FloatBobStrength to 1.
 		// WaveAttack state handles firing projectile and cascading to the next one.
-		FloatBobStrength = 1.0;
-		SetState(ResolveState("WaveAttack"));
+		if(health > 0)
+		{
+			FloatBobStrength = 1.0;
+			SetState(ResolveState("WaveAttack"));
+		}
 	}
 
 	override void Tick()
@@ -177,7 +190,13 @@ class snakebody : actor
 			Goto Spawn;
 		WaveAttack:
 			HART BC 3;
-			HART C 1; //TODO: Spawn projectile here.
+			HART C 1 
+			{
+				target = owner;
+				A_FaceTarget();
+				A_SpawnProjectile("SnakeShot",0,-32,90,CMF_AIMDIRECTION,20);
+				A_SpawnProjectile("SnakeShot",0,32,-90,CMF_AIMDIRECTION,20);
+			}
 			HART A 1
 			{
 				if(tail!=null)
@@ -226,7 +245,8 @@ class SnakeShot : Actor
 	{
 		+ROLLSPRITE;
 		Height 32;
-		Width 16;
+		Radius 8;
+		Speed 10;
 		Projectile;
 		DamageFunction (30);
 	}
@@ -234,7 +254,7 @@ class SnakeShot : Actor
 	Override void Tick()
 	{
 		Super.Tick();
-		roll += 8;
+		roll += 16;
 	}
 
 	states
