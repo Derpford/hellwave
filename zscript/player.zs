@@ -19,6 +19,8 @@ class HellwavePlayer : PlayerPawn
 	void HeartSpawn()
 	{
 		//TODO: Move all heart handling to an event handler.
+		Vector3 newpos = Vec3Angle(32.0, angle);
+
 		let nheart = Heart(spawn("Heart",newpos));
 		nheart.owner = self;
 		heart = nheart;
