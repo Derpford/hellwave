@@ -1,10 +1,31 @@
+class CardUIHandler : EventHandler
+{
+	override void RenderOverlay(RenderEvent e)
+	{
+		PlayerInfo plr = players[consoleplayer];
+		let card = CardGun(plr.readyweapon);
+		if(card != null)
+		{
+			int debt = card.heat;
+			int max = card.maxheat;
+			string cash = String.Format("Debt: -%d/%d",debt,max);
+			Screen.DrawText("BIGFONT",0,400,800,cash);
+		}
+	}
+}
+
 class CardGun : Weapon
 {
 	// Shoots moneysplosions. Don't overdraft it.
 	float weproll;
+	int heat;
+	int maxheat;
+	property Heat: maxheat;
 	default
 	{
 		+ROLLSPRITE; // hacky bullshit lol
+		Weapon.SlotNumber 3;
+		CardGun.Heat 250;
 	}
 
 	override void Tick()
@@ -12,7 +33,15 @@ class CardGun : Weapon
 		Super.Tick();
 		weproll = (weproll + 8.0)%360;
 		A_SetRoll(weproll);
+		if(heat>0){ heat -= 1; }
+
 	}
+
+	/*override void RenderOverlay(RenderEvent e)
+	{
+		string cash = StringFormat("Debt: -%d/500");
+		Screen.DrawText("BIGFONT",0,400,800,num);
+	}*/
 
 	States
 	{
@@ -27,8 +56,21 @@ class CardGun : Weapon
 			Loop;
 		Fire:
 			CARD A 0
-			{ A_FireProjectile("CardShot"); }
-			CARD A 12;
+			{
+				//TODO: Overheat mechanic.
+				if(invoker.heat>invoker.maxheat)
+				{
+					return resolvestate("Ready");
+				}
+				else
+				{
+					invoker.heat += 35;
+					return resolvestate(null);
+				}
+			}
+			CARD A 0
+			{ A_FireProjectile("CardShot"); A_WeaponOffset(0,12,WOF_ADD); }
+			CARD AAAAAAAAAAAA 1 A_WeaponOffset(0,-1,WOF_ADD);
 			Goto Ready;
 	}
 }
@@ -45,12 +87,13 @@ class CardShot : Actor
 		+WALLSPRITE;
 		+MTHRUSPECIES;
 		Scale 2;
+		RenderStyle "add";
 	}
 
 	states
 	{
 		Spawn:
-			DOLL ABCD 2 { angle += 12; }
+			DOLL ABCD 2 { angle += 12; A_SpawnItemEX("CardTrail"); }
 			Loop;
 		Death:
 			DOLL A 0

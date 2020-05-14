@@ -25,7 +25,7 @@ gameinfo {
 	borderflat = "dithwal1"
 	skyflatname = "f_sky1"
 
-	addeventhandlers = "HeartHandler"
+	addeventhandlers = "HeartHandler", "CardUIHandler"
 
 	quitmessages = "Your soul is forfeit.\nPress Y to abandon it, or N to steal it back.",
 	"a b a n d o n a l l h o p e ? (y/n)",
