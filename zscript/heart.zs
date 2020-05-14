@@ -45,57 +45,60 @@ class Heart : Actor
 	{
 		// Chase the player.
 		let plr = HellwavePlayer(owner);
-		if(Distance3D(owner) > 64 && plr.HeartFollow)
+		if(plr != null)
 		{
-			// Follow the player!
-			
-			Vector3 mov = (0,0,0);
-			Vector3 goal = Vec3To(owner);
-			Vector2 goal2d = (goal.x,goal.y);
-
-			bool freeleft = CheckLOF(minrange: 64, offsetwidth: -12); // Left side unblocked?
-			bool freeright = CheckLOF(minrange: 64, offsetwidth: 12); // Right side unblocked?
-			bool canfollow = freeleft && freeright;
-
-			if(goal.length() != 0) // div by zero checks~!
+			if(Distance3D(owner) > 64 && plr.HeartFollow)
 			{
-				mov = (goal.x/goal.length(), goal.y/goal.length(), goal.z/goal.length());
-			}
+				// Follow the player!
+				
+				Vector3 mov = (0,0,0);
+				Vector3 goal = Vec3To(owner);
+				Vector2 goal2d = (goal.x,goal.y);
 
-			target = owner;
-			/*if(!canfollow)
-			{
-				//if(tm.)
-				//console.printf("Blocked!");
-				if(angletimer < 1)
+				bool freeleft = CheckLOF(minrange: 64, offsetwidth: -12); // Left side unblocked?
+				bool freeright = CheckLOF(minrange: 64, offsetwidth: 12); // Right side unblocked?
+				bool canfollow = freeleft && freeright;
+
+				if(goal.length() != 0) // div by zero checks~!
 				{
-					angletimer = random(105,175);
-					randomangle = frandom(95,125);
-					if(freeright && !freeleft)
-					{ randomangle *= -1; }
-					else if(freeleft && !freeright)
-					{ randomangle *= 1; } // Dummy operation, we want a positive angle if freeleft is true but freeright isn't
-					else if(random(0,1)>0)
-					{ randomangle *= -1; }
+					mov = (goal.x/goal.length(), goal.y/goal.length(), goal.z/goal.length());
 				}
-				mov = (RotateVector((mov.x, mov.y), randomangle), mov.z);
-			}*/
 
-			if(goal.length()>72)
-			{
-				if(vel.length()<12 /*&& canfollow*/)
-				{ 
-					vel += mov*4;
+				target = owner;
+				/*if(!canfollow)
+				{
+					//if(tm.)
+					//console.printf("Blocked!");
+					if(angletimer < 1)
+					{
+						angletimer = random(105,175);
+						randomangle = frandom(95,125);
+						if(freeright && !freeleft)
+						{ randomangle *= -1; }
+						else if(freeleft && !freeright)
+						{ randomangle *= 1; } // Dummy operation, we want a positive angle if freeleft is true but freeright isn't
+						else if(random(0,1)>0)
+						{ randomangle *= -1; }
+					}
+					mov = (RotateVector((mov.x, mov.y), randomangle), mov.z);
+				}*/
+
+				if(goal.length()>72)
+				{
+					if(vel.length()<12 /*&& canfollow*/)
+					{ 
+						vel += mov*4;
+					}
+					else if(vel.length()<6) // We can't see the player, so use a lower top speed.
+					{ 
+						vel += mov*4;
+					}
+					vel = vel*0.9;
 				}
-				else if(vel.length()<6) // We can't see the player, so use a lower top speed.
-				{ 
-					vel += mov*4;
+				else
+				{
+					vel = vel/2;
 				}
-				vel = vel*0.9;
-			}
-			else
-			{
-				vel = vel/2;
 			}
 		}
 
