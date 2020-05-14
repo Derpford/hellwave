@@ -11,7 +11,7 @@ class snakehead : actor
 		+THRUSPECIES;
 		Species "Snake";
 		+FLOATBOB;
-		FloatBobStrength 0.5;
+		FloatBobStrength 0.4;
 		+FLOAT;
 		+NOGRAVITY;
 		+SPAWNFLOAT;
@@ -64,6 +64,18 @@ class snakehead : actor
 		Pain:
 			HART ABC 1;
 			Goto Spawn;
+		Missile:
+			HART AABBCC 1 A_Chase(flags: CHF_FASTCHASE);
+			HART C 1 
+			{
+				if(tail!=null)
+				{
+					let next = SnakeBody(tail);
+					next.WaveAttack();
+				}
+				A_Chase(flags: CHF_FASTCHASE);
+			}
+			Goto See;
 		Death:
 			HART BCDE 1;
 			HART E 0
@@ -111,9 +123,23 @@ class snakebody : actor
 		}
 	}
 
+	void WaveAttack()
+	{
+		// Sets state to WaveAttack, then sets FloatBobStrength to 1.
+		// WaveAttack state handles firing projectile and cascading to the next one.
+		FloatBobStrength = 1.0;
+		SetState(ResolveState("WaveAttack"));
+	}
+
 	override void Tick()
 	{
 		Super.Tick();	
+
+		// Slowly reduce FloatBobStrength back to 0.5.
+		if(FloatBobStrength > 0.5)
+		{
+			FloatBobStrength = max(FloatBobStrength-0.1, 0.5);
+		}
 
 		Vector3 mov = (0,0,0);
 		Vector3 goal = pos;
@@ -149,6 +175,18 @@ class snakebody : actor
 		Pain:
 			HART BC 1;
 			Goto Spawn;
+		WaveAttack:
+			HART BC 3;
+			HART C 1; //TODO: Spawn projectile here.
+			HART A 1
+			{
+				if(tail!=null)
+				{
+					let next = SnakeBody(tail);
+					next.WaveAttack();
+				}
+			}
+			Goto Spawn;
 		Death:
 			HART BCDE 1;
 			HART E 0
@@ -178,5 +216,34 @@ class snakebody : actor
 				if(tail!=null) { tail.A_Die("final"); }
 			}
 			stop;
+	}
+}
+
+class SnakeShot : Actor
+{
+	// Spinny zappy sprite.
+	default
+	{
+		+ROLLSPRITE;
+		Height 32;
+		Width 16;
+		Projectile;
+		DamageFunction (30);
+	}
+
+	Override void Tick()
+	{
+		Super.Tick();
+		roll += 8;
+	}
+
+	states
+	{
+		Spawn:
+			SNSH A 1;
+			Loop;
+		Death:
+			SNSH A 1 A_FadeOut();
+			Loop;
 	}
 }
