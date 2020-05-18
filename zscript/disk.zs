@@ -1,4 +1,4 @@
-class disk : CustomInventory
+class disk : HWUsable
 {
 	// Prints a message on pickup. Message defined in the map.
 	string user_message;
@@ -6,15 +6,24 @@ class disk : CustomInventory
 	default
 	{
 		// This should come back after a bit.
-		+Inventory.ALWAYSRESPAWN;
-		Alpha 0; // needed for fade-in
+		//+Inventory.ALWAYSRESPAWN;
+		Alpha 1; // needed for fade-in
 		+WALLSPRITE;
 		+FLOATBOB;
 		scale 0.5;
 		Radius 32;
-		Inventory.RespawnTics 140;
-		Inventory.PickupMessage "Found a disk.";
-		Inventory.PickupSound "disk/pickup";
+		//Inventory.RespawnTics 140;
+		//Inventory.PickupMessage "Found a disk.";
+		//Inventory.PickupSound "disk/pickup";
+	}
+
+	override bool Used(Actor user)
+	{
+		user.A_Print(""..user_message,5);
+		A_PlaySound("disk/pickup");
+		threshold = 35;
+		SetState(ResolveState("Spin"));
+		return true;
 	}
 
 	override void Tick()
@@ -27,28 +36,20 @@ class disk : CustomInventory
 	{
 		Spawn:
 			DISK A 0;
-			DISK A 1 
-			{
-				A_FadeIn();
-				if(alpha >= 1.0)
-				{
-					return ResolveState("Spin");
-				}
-				return ResolveState(null);
-			}
-			Loop;
-		Spin:
 			DISK A 16;
 			DISK BC 4;
 			DISK D 2;
 			Loop;
-		Pickup:
-			DISK A 0 
-			{	
-				A_Print(""..invoker.user_message,5);
-				Spawn("diskfadeFX",invoker.pos);
+		Spin:
+			DISK AAABBCCD 1 
+			{ 
+				angle += 7; 
+				if(threshold<1)
+				{ return ResolveState("Spawn"); }
+				else
+				{	threshold -= 1; return ResolveState(null); }
 			}
-			Stop;
+			Loop;
 		Death:
 			DISK ABCD 1 A_FadeOut();
 			Loop;

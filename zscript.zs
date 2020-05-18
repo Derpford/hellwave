@@ -1,4 +1,15 @@
-version "4.1"
+version "4.3"
+
+// Base classes.
+
+class HWUsable : Actor 
+{
+	override bool Used(actor user)
+	{
+		console.printf("Boink! Unimplemented 'Used' function!");
+		return false;
+	}
+}
 
 // Key objects.
 #include "zscript/heart.zs"

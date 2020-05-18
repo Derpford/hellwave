@@ -28,6 +28,27 @@ class HellwavePlayer : PlayerPawn
 		// Spawns a new heart.
 	}
 
+	void CheckForUsables()
+	{
+		bool found = false;
+		let search = BlockThingsIterator.Create(self,64);
+		let toucher = search.next();
+		while(!found)
+		{
+			if(toucher is "HWUsable")
+			{
+				found = true;
+				KeyBindings kb;
+				int k1, k2 = kb.GetKeysForCommand("+use");
+				string usekey = kb.NameKeys(k1,k2);
+				int x = Screen.GetWidth()/2;
+				int y = Screen.GetHeight()/2;
+				Screen.DrawText("SMALLFNT",0,x,y,"Press USE");
+			}
+			toucher = search.next();
+		}
+	}
+
 	override void PostBeginPlay()
 	{
 		//HeartSpawn();	
@@ -36,6 +57,7 @@ class HellwavePlayer : PlayerPawn
 
 	override void Tick()
 	{
+		CheckForUsables();
 		// Set a variable here that the heart can check to see if it needs to follow.
 		int buttons = GetPlayerInput(INPUT_BUTTONS);
 		if(buttons & BT_SPEED)
