@@ -18,7 +18,6 @@ class HellwavePlayer : PlayerPawn
 
 	void HeartSpawn()
 	{
-		//TODO: Move all heart handling to an event handler.
 		Vector3 newpos = Vec3Angle(32.0, angle);
 
 		let nheart = Heart(spawn("Heart",newpos));
@@ -28,25 +27,22 @@ class HellwavePlayer : PlayerPawn
 		// Spawns a new heart.
 	}
 
-	void CheckForUsables()
+	clearscope bool CheckForUsables()
 	{
-		bool found = false;
+		bool FoundUsable = false;
 		let search = BlockThingsIterator.Create(self,64);
-		let toucher = search.next();
-		while(!found)
+		while(search.next())
 		{
-			if(toucher is "HWUsable")
+			if(search.Thing is "HWUsable")
 			{
-				found = true;
-				KeyBindings kb;
-				int k1, k2 = kb.GetKeysForCommand("+use");
-				string usekey = kb.NameKeys(k1,k2);
-				int x = Screen.GetWidth()/2;
-				int y = Screen.GetHeight()/2;
-				Screen.DrawText("SMALLFNT",0,x,y,"Press USE");
+				console.printf("angle: "..angleTo(search.Thing));
+				if(AngleTo(search.Thing)>=-30 && AngleTo(search.Thing)<=30)
+				{
+					FoundUsable = true;
+				}
 			}
-			toucher = search.next();
 		}
+		return FoundUsable;
 	}
 
 	override void PostBeginPlay()
@@ -57,7 +53,6 @@ class HellwavePlayer : PlayerPawn
 
 	override void Tick()
 	{
-		CheckForUsables();
 		// Set a variable here that the heart can check to see if it needs to follow.
 		int buttons = GetPlayerInput(INPUT_BUTTONS);
 		int oldbuttons = GetPlayerInput(INPUT_OLDBUTTONS);

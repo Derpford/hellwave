@@ -26,3 +26,20 @@ class HeartHandler : EventHandler
 	}
 }
 
+class UseKeyHandler : EventHandler
+{
+	override void RenderOverlay(RenderEvent e)
+	{
+		let plr = HellwavePlayer(players[consoleplayer].mo);
+		if(plr == null)
+		{ return; }
+		if(plr.CheckForUsables())
+		{
+			int k1, k2 = Bindings.GetKeysForCommand("+use");
+			string usekey = Bindings.NameKeys(k1,k2);
+			int x = Screen.GetWidth()/2;
+			int y = Screen.GetHeight()/2;
+			Screen.DrawText("SMALLFNT",0,x,y,"Press USE");
+		}
+	}
+}
