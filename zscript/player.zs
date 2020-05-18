@@ -60,14 +60,17 @@ class HellwavePlayer : PlayerPawn
 		CheckForUsables();
 		// Set a variable here that the heart can check to see if it needs to follow.
 		int buttons = GetPlayerInput(INPUT_BUTTONS);
-		if(buttons & BT_SPEED)
+		int oldbuttons = GetPlayerInput(INPUT_OLDBUTTONS);
+		if(buttons & BT_ZOOM && !oldbuttons & BT_ZOOM)
 		{
-			// Holding walk or run makes the heart stop.
-			HeartFollow = false;
-		}
-		else
-		{
-			HeartFollow = true;
+			if(HeartFollow)
+			{
+				HeartFollow = false;
+			}
+			else
+			{
+				HeartFollow = true;
+			}
 		}
 
 		if(heart == null)
