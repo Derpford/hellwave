@@ -11,6 +11,7 @@ class disk : HWUsable
 		+WALLSPRITE;
 		+FLOATBOB;
 		+SHOOTABLE; // FIX YOUR SHIT GRAF
+		+INVULNERABLE;
 		scale 0.5;
 		Radius 32;
 		Height 64;

@@ -46,7 +46,6 @@ class HellwavePlayer : PlayerPawn
 		}*/
 		FLineTraceData search;
 		bool hit = linetrace(angle, 64, pitch, TRF_ALLACTORS, 32, data: search);
-		if(search.HitType == TRACE_HitActor) { console.printf("Hit an actor!"); }
 		if(search.HitActor is "HWUsable") { FoundUsable = true; }
 		return FoundUsable;
 	}
