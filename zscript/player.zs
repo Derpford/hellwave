@@ -61,6 +61,7 @@ class HellwavePlayer : PlayerPawn
 	override void PostBeginPlay()
 	{
 		//HeartSpawn();	
+		HeartFollow = true;
 		super.PostBeginPlay();
 	}
 
@@ -70,7 +71,10 @@ class HellwavePlayer : PlayerPawn
 		// Set a variable here that the heart can check to see if it needs to follow.
 		int buttons = GetPlayerInput(INPUT_BUTTONS);
 		int oldbuttons = GetPlayerInput(INPUT_OLDBUTTONS);
-		if(buttons & BT_ZOOM && !oldbuttons & BT_ZOOM)
+		bool zoom = buttons & BT_ZOOM && !(oldbuttons & BT_ZOOM);
+		bool run = buttons & BT_SPEED;
+		
+		if(zoom)
 		{
 			if(HeartFollow)
 			{
