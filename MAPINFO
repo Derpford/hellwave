@@ -1,5 +1,5 @@
 defaultmap {
-	sky1 = "OSKY46",0.5
+	sky1 = "OSKY46",0.1
 	cluster = 1
 }
 
@@ -22,6 +22,7 @@ map MAP02 "Soulless Mall"
 map MAP03 "The BSP Forest"
 {
 	LevelNum = 03
+	sky1 = "OSKY28",0.4
 	Cluster = 1
 }
 
