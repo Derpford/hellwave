@@ -86,6 +86,12 @@ class HellwavePlayer : PlayerPawn
 			}
 		}
 
+		if(run)
+		{
+			//TODO: Make heart warp to front of player.
+			heart.Warp(self,16, flags: WARPF_WARPINTERPOLATION);
+		}
+
 		super.Tick();
 	}
 	
