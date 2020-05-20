@@ -35,11 +35,12 @@ class HellwavePlayer : PlayerPawn
 		{
 			if(search.Thing is "HWUsable")
 			{
-				console.printf("angle: "..angleTo(search.Thing));
-				if(AngleTo(search.Thing)>=-30 && AngleTo(search.Thing)<=30)
-				{
+				//target = search.Thing;
+				//console.printf("angle: "..CheckIfTargetInLOS(40));
+				//if(AngleTo(search.Thing)>=-30 && AngleTo(search.Thing)<=30)
+				//{
 					FoundUsable = true;
-				}
+				//}
 			}
 		}
 		return FoundUsable;
