@@ -1,5 +1,5 @@
-defaultmap { 
-	sky1 = "OSKY46",0.5 
+defaultmap {
+	sky1 = "OSKY46",0.5
 	cluster = 1
 }
 
@@ -8,7 +8,7 @@ cluster 1 {
 }
 
 map MAP01 "Temple of Belphegor"
-{ 
+{
 	LevelNum = 01
 	Cluster = 1
 }
@@ -19,9 +19,15 @@ map MAP02 "Soulless Mall"
 	Cluster = 1
 }
 
+map MAP03 "The BSP Forest"
+{
+	LevelNum = 03
+	Cluster = 1
+}
 
-gameinfo { 
-	playerclasses = "HellwavePlayer" 
+
+gameinfo {
+	playerclasses = "HellwavePlayer"
 	borderflat = "dithwal1"
 	skyflatname = "f_sky1"
 
@@ -70,7 +76,7 @@ doomednums
 	6902 = "disk"
 	6903 = "DecoHeart"
 	6904 = "snakehead"
-	
+
 	6911 = "BlueIconKey"
 	6912 = "RedIconKey"
 
