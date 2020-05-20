@@ -13,6 +13,7 @@ class disk : HWUsable
 		+SHOOTABLE; // FIX YOUR SHIT GRAF
 		+INVULNERABLE;
 		Tag "Message Disk";
+		HWUsable.verb "read";
 		scale 0.5;
 		Radius 32;
 		Height 64;

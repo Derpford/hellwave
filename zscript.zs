@@ -4,10 +4,13 @@ version "4.3"
 
 class HWUsable : Actor 
 {
+	string verb;
+	Property verb: verb;
 	default
 	{
 		+SHOOTABLE;
 		+INVULNERABLE;
+		HWUsable.verb "use";
 	}
 	override bool Used(actor user)
 	{

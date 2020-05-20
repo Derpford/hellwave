@@ -6,6 +6,7 @@ class HellwavePlayer : PlayerPawn
 	bool HeartFollow;
 	bool FoundUsable;
 	string UsableName;
+	string UsableVerb;
 	Actor heart;
 
 	default
@@ -47,7 +48,13 @@ class HellwavePlayer : PlayerPawn
 		}*/
 		FLineTraceData search;
 		bool hit = linetrace(angle, 64, pitch, TRF_ALLACTORS, 32, data: search);
-		if(search.HitActor is "HWUsable") { FoundUsable = true; UsableName = search.HitActor.GetTag("object"); }
+		if(search.HitActor is "HWUsable") 
+		{ 
+			FoundUsable = true; 
+			let thing = HWUsable(search.HitActor);
+			UsableName = thing.GetTag("object");
+			UsableVerb = thing.verb;
+		}
 		return FoundUsable;
 	}
 
@@ -89,3 +96,4 @@ class HellwavePlayer : PlayerPawn
 			Stop;
 	}
 }
+
