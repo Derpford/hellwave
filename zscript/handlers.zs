@@ -38,7 +38,7 @@ class UseKeyHandler : EventHandler
 		{
 			int k1, k2 = Bindings.GetKeysForCommand("+use");
 			string usekey = Bindings.NameKeys(k1,k2);
-			string msg = "Press "..usekey.." to interact";
+			string msg = "Press "..usekey.." to interact with this "..plr.UsableName;
 			int x = (Screen.GetWidth()*0.5) - (smallFont.StringWidth(msg)*0.5);
 			int y = Screen.GetHeight()*0.4;
 			Screen.DrawText("SMALLFNT",0,x,y,msg);

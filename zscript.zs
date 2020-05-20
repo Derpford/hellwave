@@ -4,6 +4,11 @@ version "4.3"
 
 class HWUsable : Actor 
 {
+	default
+	{
+		+SHOOTABLE;
+		+INVULNERABLE;
+	}
 	override bool Used(actor user)
 	{
 		console.printf("Boink! Unimplemented 'Used' function!");

@@ -12,6 +12,7 @@ class disk : HWUsable
 		+FLOATBOB;
 		+SHOOTABLE; // FIX YOUR SHIT GRAF
 		+INVULNERABLE;
+		Tag "Message Disk";
 		scale 0.5;
 		Radius 32;
 		Height 64;
