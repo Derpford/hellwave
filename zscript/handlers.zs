@@ -34,7 +34,7 @@ class UseKeyHandler : EventHandler
 		let plr = HellwavePlayer(players[consoleplayer].mo);
 		if(plr == null)
 		{ return; }
-		if(plr.CheckForUsables())
+		if(plr.FoundUsable)
 		{
 			int k1, k2 = Bindings.GetKeysForCommand("+use");
 			string usekey = Bindings.NameKeys(k1,k2);

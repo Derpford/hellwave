@@ -4,6 +4,7 @@ class HellwavePlayer : PlayerPawn
 	// When the Heart dies, you die.
 
 	bool HeartFollow;
+	bool FoundUsable;
 	Actor heart;
 
 	default
@@ -27,10 +28,10 @@ class HellwavePlayer : PlayerPawn
 		// Spawns a new heart.
 	}
 
-	clearscope bool CheckForUsables()
+	bool CheckForUsables()
 	{
 		bool FoundUsable = false;
-		let search = BlockThingsIterator.Create(self,64);
+		/*let search = BlockThingsIterator.Create(self,64);
 		while(search.next())
 		{
 			if(search.Thing is "HWUsable")
@@ -42,7 +43,11 @@ class HellwavePlayer : PlayerPawn
 					FoundUsable = true;
 				//}
 			}
-		}
+		}*/
+		FLineTraceData search;
+		bool hit = linetrace(angle, 64, pitch, TRF_ALLACTORS, 32, data: search);
+		if(search.HitType == TRACE_HitActor) { console.printf("Hit an actor!"); }
+		if(search.HitActor is "HWUsable") { FoundUsable = true; }
 		return FoundUsable;
 	}
 
@@ -54,6 +59,7 @@ class HellwavePlayer : PlayerPawn
 
 	override void Tick()
 	{
+		FoundUsable = CheckForUsables();
 		// Set a variable here that the heart can check to see if it needs to follow.
 		int buttons = GetPlayerInput(INPUT_BUTTONS);
 		int oldbuttons = GetPlayerInput(INPUT_OLDBUTTONS);

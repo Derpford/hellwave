@@ -10,8 +10,10 @@ class disk : HWUsable
 		Alpha 1; // needed for fade-in
 		+WALLSPRITE;
 		+FLOATBOB;
+		+SHOOTABLE; // FIX YOUR SHIT GRAF
 		scale 0.5;
 		Radius 32;
+		Height 64;
 		//Inventory.RespawnTics 140;
 		//Inventory.PickupMessage "Found a disk.";
 		//Inventory.PickupSound "disk/pickup";
