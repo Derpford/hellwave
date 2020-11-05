@@ -24,6 +24,8 @@ class CardGun : Weapon
 	default
 	{
 		+ROLLSPRITE; // hacky bullshit lol
+		+WALLSPRITE;
+		+NOGRAVITY; // necessary for spawn height because of how roll+spin works
 		Weapon.SlotNumber 3;
 		CardGun.Heat 250;
 	}
@@ -45,6 +47,9 @@ class CardGun : Weapon
 
 	States
 	{
+		Spawn:
+			CARF A 1 { angle += 8; }
+			Loop;
 		Select:
 			CARD A 1 A_Raise();
 			Loop;
@@ -93,7 +98,7 @@ class CardShot : Actor
 	states
 	{
 		Spawn:
-			DOLL ABCD 2 { angle += 12; A_SpawnItemEX("CardTrail"); }
+			DOLL ABCD 2 bright { angle += 12; A_SpawnItemEX("CardTrail"); }
 			Loop;
 		Death:
 			DOLL A 0
