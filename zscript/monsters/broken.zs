@@ -8,7 +8,7 @@ class Broken : actor
 		height 48;
 		radius 16;
 		+float;
-		+flatsprite;
+		+wallsprite;
 		+nogravity;
 		+spawnfloat;
 		speed 2; // Nearly immobile, you have enough to keep track of as it is.
