@@ -1,5 +1,6 @@
 class Broken : actor
 {
+	double dpit;
 	// A broken jpeg left to stew in its own madness.
 	default
 	{
@@ -25,7 +26,7 @@ class Broken : actor
 		missile:
 			brkn a 5
 			{
-				for(int i = 0; i<3;i++)
+				for(int i = 0; i<4;i++)
 				{
 					let bm = BrokenMissile(A_SpawnProjectile("BrokenMissile"));
 					bm.tracer = target;
@@ -33,7 +34,23 @@ class Broken : actor
 				}
 			}
 			goto see;
-
+		death:
+			brkn a 1 
+			{ 
+				vel.z += 5; 
+				vel.x += random(-2,2); vel.y += random(-2,2);
+				dpit = frandom(-3,3);
+				pitch = -90+dpit;
+				bWALLSPRITE = false; bFLATSPRITE = true; bNOGRAVITY = false; 
+			}
+			brkn a 1 A_NoBlocking();
+		deathloop:
+			brkn a 1 { pitch += dpit; }
+			loop;
+		crash:
+			brkn a 1 { pitch = 0; }
+			brkn a -1;
+			stop;
 	}
 }
 
@@ -47,17 +64,17 @@ class BrokenMissile : actor
 		PROJECTILE;
 		damagefunction(15);
 		speed 1;
-		ReactionTime 16;
+		ReactionTime 64;
 	}
 
 	states
 	{
 		Spawn:
-			brks abcb 3 bright 
+			brks abcb 1 bright 
 			{
-				ang += 16;
-				//A_Countdown();
-				//A_Warp(AAPTR_TRACER,sin(ang)*128,cos(ang)*128);
+				ang += 4;
+				A_Countdown();
+				A_Warp(AAPTR_TRACER,sin(ang)*128,cos(ang)*128,32,flags: WARPF_ABSOLUTEOFFSET|WARPF_COPYINTERPOLATION);
 			}
 			loop;
 		Death:
