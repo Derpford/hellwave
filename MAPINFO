@@ -23,6 +23,7 @@ map MAP03 "The BSP Forest"
 {
 	LevelNum = 03
 	sky1 = "OSKY28",0.4
+	sky2 = "OSKY20",0.4
 	Cluster = 1
 }
 
