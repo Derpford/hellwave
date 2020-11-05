@@ -34,5 +34,6 @@ class HWUsable : Actor
 // Combat objects.
 #include "zscript/monsters/twanger.zs"
 #include "zscript/monsters/snake.zs"
+#include "zscript/monsters/broken.zs"
 #include "zscript/weapons/crystalgun.zs"
 #include "zscript/weapons/cardgun.zs"
