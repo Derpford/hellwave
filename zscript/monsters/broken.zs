@@ -4,7 +4,7 @@ class Broken : actor
 	// A broken jpeg left to stew in its own madness.
 	default
 	{
-		health 32;
+		health 64;
 		MONSTER;
 		height 48;
 		radius 16;
